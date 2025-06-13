@@ -6,7 +6,7 @@ import { Sparkles, Users, Tv, Settings, Copy, Share2, Play, ChevronLeft, Crown, 
 
 // --- FIREBASE CONFIGURATION ---
 // These global variables are provided by the environment.
-const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+const firebaseConfig = JSON.parse(import.meta.env.VITE_FIREBASE_CONFIG || '{}');
 const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-trivia-app';
 
