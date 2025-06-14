@@ -1,7 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
-import Home from './components/Home';
-import SinglePlayer from './components/SinglePlayer';
-import Multiplayer from './components/Multiplayer';
+
+// Corrected import paths for your project structure
+import Home from './Home';
+import SinglePlayer from './SinglePlayer';
+import Multiplayer from './Multiplayer';
 
 function App() {
   return (
