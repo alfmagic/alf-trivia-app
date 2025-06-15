@@ -6,17 +6,7 @@ import { Sparkles, Users, Tv, Settings, Copy, Share2, Play, ChevronLeft, Crown, 
 
 // --- FIREBASE CONFIGURATION ---
 // In a real deployed app, this would come from Vercel's environment variables.
-// For this preview, we use the variables provided by the environment if they exist.
-const firebaseConfig = typeof __firebase_config !== 'undefined' && __firebase_config ? JSON.parse(__firebase_config) : {
-    // A fallback public config for preview purposes ONLY.
-    // Replace with your own config when deploying.
-    apiKey: "AIzaSyC123...",
-    authDomain: "your-project-id.firebaseapp.com",
-    projectId: "your-project-id",
-    storageBucket: "your-project-id.appspot.com",
-    messagingSenderId: "1234567890",
-    appId: "1:1234567890:web:abc123def456"
-};
+const firebaseConfig = JSON.parse(import.meta.env.VITE_FIREBASE_CONFIG || '{}');
 const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-trivia-app';
 
@@ -111,7 +101,7 @@ const CustomModal = ({ title, children, onClose }) => (
 );
 
 
-// --- MAIN APP COMPONENTS (Part 1) ---
+// --- MAIN APP COMPONENTS ---
 
 const MainMenu = ({ setView, setGameMode }) => (
     <div className="w-full max-w-md mx-auto p-4 flex flex-col items-center justify-center h-full text-center">
@@ -142,7 +132,7 @@ const MainMenu = ({ setView, setGameMode }) => (
         </div>
     </div>
 );
-// --- MAIN APP COMPONENTS (Part 2) ---
+
 const EnterName = ({ setView, setPlayerName, gameMode, playerName, directJoinRoomId, handleJoinRoom }) => {
     const [name, setName] = useState(playerName);
 
@@ -278,7 +268,6 @@ const MultiplayerMenu = ({ setView, setRoomId, userId, playerName, handleJoinRoo
         </div>
     );
 };
-// --- MAIN APP COMPONENTS (Part 3) ---
 
 const Lobby = ({ setView, roomId, userId }) => {
     const [room, setRoom] = useState(null);
@@ -607,7 +596,7 @@ export default function App() {
         if (view === 'error') return <div className="text-red-400 text-center">{error}</div>;
         if (view === 'loading' || !isAuthReady) return <LoadingSpinner />;
 
-        switch () {
+        switch (view) {
             case 'mainMenu':
                 return <MainMenu setView={setView} setGameMode={setGameMode} />;
             case 'enterName':
